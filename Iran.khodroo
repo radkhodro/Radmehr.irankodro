@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>سایت ایران‌خودرو</title>
+  <style>
+    @font-face {
+      font-family: 'Vazir';
+      src: url('fonts/Vazir.eot');
+      src: url('fonts/Vazir.eot?#iefix') format('embedded-opentype'),
+           url('fonts/Vazir.woff2') format('woff2'),
+           url('fonts/Vazir.woff') format('woff'),
+           url('fonts/Vazir.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    
+    body {
+      font-family: 'Vazir', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: white;
+      color: black;
+      text-align: right;
+      line-height: 1.6;
+    }
+
+    .header {
+      text-align: center;
+      padding: 20px;
+      background-color: white;
+    }
+
+    .header img {
+      width: 240px;
+      margin-bottom: 10px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 30px;
+      background-color: white;
+    }
+
+    .buttons a {
+      display: block;
+      width: 173px;
+      height: 45px;
+      margin: 10px;
+      padding: 10px;
+      text-align: center;
+      background-color: #27408B;
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      border-radius: 5px;
+      line-height: 25px;
+    }
+
+    .buttons a:hover {
+      background-color: #1c2e6d;
+    }
+
+    .menu-icon {
+      font-size: 30px;
+      cursor: pointer;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 999;
+    }
+
+    .menu-icon.open::before {
+      content: "\00d7";
+    }
+
+    .menu {
+      display: none;
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 53%;
+      height: 100%;
+      background-color: #000;
+      color: white;
+      text-align: right;
+      padding: 50px 20px 0 0;
+      z-index: 1;
+      font-family: 'Vazir', Arial, sans-serif;
+    }
+
+    .menu.open {
+      display: block;
+    }
+
+    .menu a {
+      display: block;
+      color: white;
+      font-size: 22px;
+      margin: 20px 0;
+      text-decoration: none;
+      padding: 10px;
+    }
+
+    .menu a:hover {
+      background-color: #555;
+    }
+
+    .content {
+      margin-top: 100px;
+      padding: 20px;
+      text-align: right;
+      font-family: 'Vazir', Arial, sans-serif;
+    }
+
+    .content img {
+      max-width: 100%;
+      height: auto;
+      margin-top: 20px;
+    }
+
+    .content h2, .content h3 {
+      margin-top: 40px;
+      color: #27408B;
+      text-align: right;
+    }
+
+    .content ul {
+      text-align: right;
+      margin: 0 auto;
+      max-width: 600px;
+      padding-right: 20px;
+    }
+
+    .content p {
+      text-align: right;
+      margin: 15px 0;
+    }
+
+    /* خط جدا کننده */
+    .divider {
+      width: 100%;
+      border-bottom: 2px solid #27408B;
+      margin-top: 40px;
+      margin-bottom: 20px;
+    }
+
+    /* کادر افقی برای انتخاب‌ها */
+    .option-boxes {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 30px;
+    }
+
+    .option-box {
+      padding: 15px;
+      width: 200px;
+      text-align: center;
+      background-color: #f0f0f0;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: 'Vazir', Arial, sans-serif;
+    }
+
+    .option-box:hover {
+      background-color: #d0d0d0;
+    }
+
+    /* کادر جستجو */
+    .search-box {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .search-box input {
+      width: 70%;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-family: 'Vazir', Arial, sans-serif;
+      text-align: right;
+    }
+
+    .search-box button {
+      padding: 10px;
+      background-color: #27408B;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    .search-box button:hover {
+      background-color: #1c2e6d;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 16px;
+      margin-top: 10px;
+      text-align: right;
+      font-family: 'Vazir', Arial, sans-serif;
+    }
+
+    /* کادر نظرات */
+    .comments-box {
+      margin-top: 40px;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: right;
+      font-family: 'Vazir', Arial, sans-serif;
+    }
+
+    .comments-box h3 {
+      margin-bottom: 20px;
+      color: #27408B;
+      text-align: right;
+    }
+
+    .comments-box textarea, .comments-box input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+      font-family: 'Vazir', Arial, sans-serif;
+      text-align: right;
+      direction: rtl;
+    }
+
+    .comments-box button {
+      padding: 10px 20px;
+      background-color: #27408B;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: 'Vazir', Arial, sans-serif;
+    }
+
+    .comments-box button:hover {
+      background-color: #1c2e6d;
+    }
+
+    /* دکمه‌ها */
+    .cancel-send-buttons {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .cancel-send-buttons button {
+      width: 48%;
+    }
+  </style>
+  <!-- لینک فونت وزیر از CDN -->
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+  <!-- لوگو -->
+  <div class="header">
+    <img src="https://cdn-thra.bama.ir/uploads/BamaImages/News/7dcdfad9-9bb4-431c-97e7-904f7ba84006/article_638777217318967980.jpg" alt="لوگوی ایران‌خودرو">
+  </div>
+
+  <!-- دکمه‌ها -->
+  <div class="buttons">
+    <a href="#">ورود<br>--------------------</a>
+    <a href="#">ثبت‌نام<br>--------------------</a>
+    <a href="#">بخشنامه‌ها<br>--------------------</a>
+    <a href="#">لیست قیمت محصولات<br>--------------------</a>
+    <a href="#">خدمات کارت طلایی<br>--------------------</a>
+  </div>
+
+  <!-- خط جدا کننده -->
+  <div class="divider"></div>
+
+  <!-- کادر افقی گزینه‌ها -->
+  <div class="option-boxes">
+    <div class="option-box">جستجوی محصول</div>
+    <div class="option-box">سفارش محصول</div>
+    <div class="option-box">آدرس نمایندگی‌های مجاز</div>
+    <div class="option-box">اسامی برندگان</div>
+  </div>
+
+  <!-- کادر جستجو -->
+  <div class="search-box">
+    <input type="text" placeholder="کد قرعه کشی خود را وارد کنید">
+    <button><img src="https://img.icons8.com/ios-filled/50/ffffff/search.png" alt="جستجو" style="width: 20px; height: 20px;"/></button>
+  </div>
+
+  <div class="error-message" id="error-message" style="display:none;">
+    در صورت خطا با پشتیبانی تماس بگیرید: <strong>02191300478</strong>
+  </div>
+
+  <!-- منو همبرگری -->
+  <div class="menu-icon" id="menu-icon">&#9776;</div>
+
+  <div class="menu" id="menu">
+    <a href="#">خانه</a>
+    <a href="#">محصولات</a>
+    <a href="#">اسامی برندگان</a>
+    <a href="#">درباره ما</a>
+    <a href="#">پشتیبانی</a>
+  </div>
+
+  <div class="content">
+    <p>با سلام و احترام،</p>
+    <p>جناب آقای حسن سهیلی نیا به عنوان یکی از برندگان خوش‌شانس قرعه‌کشی ویژه مجموعه ایرانخودرو (کالا گستران رادمهر …) انتخاب شده‌اید. برنده خودروی لوکس و مدرن 207 پاناروما با شرایط فوق‌العاده و کاملاً رایگان خواهید شد.</p>
+
+    <h3>چه چیزی برنده شده‌اید؟</h3>
+    <p>با خوشحالی به اطلاع شما می‌رسانیم که شما برنده یک خودروی لوکس 207 پاناروما شده‌اید. این خودرو با طراحی جذاب و امکانات پیشرفته، شما را شگفت‌زده خواهد کرد. حالا فرصت دارید تا در سریع‌ترین زمان ممکن از تجربه رانندگی با این خودرو لذت ببرید.</p>
+
+    <h3>هزینه‌ها و شرایط دریافت خودرو</h3>
+    <p>اگرچه خودروی شما رایگان است، اما برای تکمیل فرآیند دریافت خودرو، هزینه‌های جانبی از جمله ثبت سند، حمل‌ونقل، بیمه‌نامه و کارت طلایی خودرو به عهده خود شما خواهد بود. این هزینه‌ها شامل موارد زیر می‌باشد:</p>
+    <ul>
+      <li>هزینه ثبت سند و انتقال مالکیت خودرو به نام شما</li>
+      <li>هزینه‌های حمل‌ونقل و جابه‌جایی خودرو تا درب منزل شما</li>
+      <li>هزینه بیمه‌نامه و کارت طلایی خودرو</li>
+    </ul>
+
+    <p>پس از تسویه این مبالغ، فرآیند انتقال مالکیت آغاز شده و خودروی شما به آدرس شما ارسال خواهد شد.</p>
+
+    <h3>مهم:</h3>
+    <ul>
+      <li>شما باید این هزینه‌ها را ظرف ۲۴ ساعت از دریافت این اطلاعیه پرداخت نمایید. در غیر این صورت، امتیاز شما به نفر بعدی واگذار خواهد شد و هیچ‌گونه اعتراضی پذیرفته نخواهد شد.</li>
+      <li>پس از پرداخت و ثبت سند، کارشناسان ما آدرس نمایندگی را برای شما ارسال خواهند کرد. شما باید در تاریخ و ساعت مشخص شده، با لباس رسمی و مناسب جهت فیلمبرداری برای تبلیغات شرکت در محل نمایندگی حاضر شوید. این تبلیغات به‌منظور پخش در صدا و سیمای کشور انجام خواهد شد.</li>
+    </ul>
+
+    <h3>چرا این فرصت را از دست ندهید؟</h3>
+    <p>این طرح به شما این امکان را می‌دهد تا با خرید کالاهایی که به شدت تخفیف خورده‌اند، نه تنها از محصولات با کیفیت بهره‌مند شوید، بلکه شانس برنده شدن خودرویی لوکس و رایگان را داشته باشید. این یک فرصت ویژه است که فقط برای تعداد محدودی از افراد ایجاد شده است و شما جزو برندگان خوش‌شانس این قرعه‌کشی خواهید بود.</p>
+
+    <p><strong>با آرزوی موفقیت بیشتر برای شما<br> (روابط عمومی شرکت کالا گستران رادمهر ... ایران خودرو)</strong></p>
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>نمایش تصاویر و مبلغ</title>
+  <style>
+    body {
+      font-family: 'Vazir', Tahoma, sans-serif;
+      background-color: #f9f9f9;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .image-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+    }
+
+    figure {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 15px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    figure img {
+      width: 100%;
+      height: auto;
+      border-radius: 1px;
+    }
+
+    figcaption {
+      margin-top: 15px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #d32f2f;
+    }
+
+</style>
+</head>
+<body>
+<div class="image-container">
+  <figure>
+    <a href="https://imgbb.com/">
+      <img src="https://i.ibb.co/KcRV9Fqc/IMG-2873.jpg"
+           alt="IMG 2873"
+           border="0">
+    </a>
+  </figure>
+</div>
+</body>
+    <figcaption> هزینه کارت طلایی : ____<br> هزینه حمل با جرثقیل : 62,500,000 <br> ارزش روز خودرو : 1,960,000,000 </figcaption>
+  </figure>
+
+</style>
+</head>
+<body>
+<div class="image-container">
+  <figure>
+    <a href="https://imgbb.com/">
+      <img src="https://i.ibb.co/PvB960jX/566e0461-1c07-4821-b1fe-f26bbb642098.jpg"
+           alt="566e0461-1c07-4821-b1fe-f26bbb642098"
+           border="0">
+    </a>
+  </figure>
+</div>
+</body>
+<a target='_blank' href='https://dedupelist.com/'></a><br />
+    <figcaption>بعد از تایید اطلاعات و قیمت با همکاران ما ، پس از تکمیل وجه بابت تحویل خودرو در تاریخ مقرر اقدام نمایید.</figcaption>
+  </figure>
+</div> 
+</body>
+</html>
+
+   <!-- کادر نظرات -->
+    <div class="comments-box">
+      <h3>پیشنهادات و نظرات خود را برای ما ارسال کنید:</h3>
+      <textarea placeholder="نظرات خود را بنویسید..."></textarea>
+      <input type="email" placeholder="آدرس ایمیل خود را وارد کنید">
+      <div class="cancel-send-buttons">
+        <button>لغو</button>
+        <button>ارسال</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var menuIcon = document.getElementById("menu-icon");
+    var menu = document.getElementById("menu");
+
+    menuIcon.onclick = function() {
+      menu.classList.toggle("open");
+      menuIcon.classList.toggle("open");
+    };
+
+    // نمایش پیام خطا هنگام جستجو نامعتبر
+    document.querySelector('.search-box button').onclick = function() {
+      document.getElementById('error-message').style.display = 'block';
+    };
+  </script>
+
+</body>
+</html>
